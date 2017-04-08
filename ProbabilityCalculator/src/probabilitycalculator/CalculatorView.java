@@ -26,8 +26,8 @@ public class CalculatorView extends javax.swing.JFrame {
     String[] cardrarity = {"Bronze", "Silver", "Silver", "Bronze", "Gold", "Gold", "Silver", "Silver", "Gold", "Legendary", "Silver", "Silver", "Legendary", "Legendary", "Legendary", "Legendary", "Legendary"};
     int[] cardcost = {1, 2, 2, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7, 8, 8, 9, 10};
     int[] numdeck = {2, 3, 1, 3, 3, 2, 3, 3, 2, 2, 2, 2, 3, 3, 1, 2, 3};
-    boolean[] animated = {false, true, true, true, false, false, true, true, false, false, false, false, true, false, true, false, true};
-    
+    int[] numAnimated = {2, 0, 0, 0, 1, 2, 0, 3, 2, 2, 2, 1, 1, 0, 0, 0, 0};
+    int totalCards = 40;
     List<Card> cards = new ArrayList<Card>();
     
     private Event event;
@@ -37,40 +37,30 @@ public class CalculatorView extends javax.swing.JFrame {
     public CalculatorView() {
         initComponents();
         
-        System.out.println(cardnames.length);
-        System.out.println(cardtype.length);
-        System.out.println(cardrarity.length);
-        System.out.println(cardcost.length);
-        System.out.println(numdeck.length);
-        System.out.println(animated.length);
+        //System.out.println(cardnames.length);
+        //System.out.println(cardtype.length);
+        //System.out.println(cardrarity.length);
+        //System.out.println(cardcost.length);
+        //System.out.println(numdeck.length);
+        //System.out.println(numAnimated.length);
         
         for(int i = 0; i < 17; i++){
-            Card temp = new Card(cardnames[i], cardtype[i], cardrarity[i], cardcost[i], numdeck[i], animated[i]);
+            Card temp = new Card(cardnames[i], cardtype[i], cardrarity[i], cardcost[i], numdeck[i], numAnimated[i]);
             
             cards.add(temp);
         }
         
-        DefaultListModel model = new DefaultListModel();
-        
-        for(int i = 0; i < cards.size(); i++){
-            model.addElement(cards.get(i).getName());
-        }
-        
-        jList1.setModel(model);
+      
     }
     
     public void updateCalc(Event event){
         this.event = event;
         events.add(event);
         
-        DefaultListModel model = new DefaultListModel();
-        
-        for(int i = 0; i < events.size(); i++){
-            model.addElement(events.get(i).getName());
-        }
         
         
-        jList1.setModel(model);
+      
+        
     }
 
     /**
@@ -83,45 +73,33 @@ public class CalculatorView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        addEventButton = new javax.swing.JButton();
-        computeMarProb = new javax.swing.JButton();
-        computeIndeConProb = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        ResultField = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        evtList = new javax.swing.JList<>();
+        addEvtButton = new javax.swing.JButton();
+        computeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        addEventButton.setText("Add New Event");
-        addEventButton.setToolTipText("");
-        addEventButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addEventButtonActionPerformed(evt);
-            }
-        });
-
-        computeMarProb.setText("Compute Marginal Probability");
-        computeMarProb.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                computeMarProbActionPerformed(evt);
-            }
-        });
-
-        computeIndeConProb.setText("Independent Conditional Probability");
-        computeIndeConProb.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                computeIndeConProbActionPerformed(evt);
-            }
-        });
-
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        evtList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane1.setViewportView(evtList);
 
-        ResultField.setText("Result: ");
+        addEvtButton.setText("Add Event");
+        addEvtButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addEvtButtonActionPerformed(evt);
+            }
+        });
+
+        computeButton.setText("Compute!");
+        computeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                computeButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -130,32 +108,24 @@ public class CalculatorView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(addEventButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(computeMarProb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(computeIndeConProb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(ResultField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addEvtButton)
+                            .addComponent(computeButton))
+                        .addGap(0, 351, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(addEvtButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ResultField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
-                .addComponent(computeIndeConProb)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addEventButton)
-                    .addComponent(computeMarProb))
-                .addContainerGap())
+                .addComponent(computeButton)
+                .addContainerGap(239, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -172,44 +142,21 @@ public class CalculatorView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addEventButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEventButtonActionPerformed
-        // TODO add your handling code here:
-        EventAddView eav = new EventAddView(this);
-        eav.setVisible(true);
-        
-        
-        
-        
-    }//GEN-LAST:event_addEventButtonActionPerformed
-
-    private void computeMarProbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computeMarProbActionPerformed
-        // TODO add your handling code here:
-        
-        List<String> names = new ArrayList<String>();
-        
-        for(int i = 0; i < events.size(); i++){
-            names.add(events.get(i).getName());
-        }
-        
-        Object[] list = names.toArray();
-        
-        Object answer = JOptionPane.showInputDialog(null, "Please choose an event", "Marginal Probability", JOptionPane.QUESTION_MESSAGE, null, list, 0);
-       
-        for(int i = 0; i < events.size(); i++){
-            if(answer == events.get(i).getName()){
-                float result = event.getSmallN() / event.getBigN();
-                ResultField.setText("Result: " + result);
-            }
-        }
-        
-        System.out.println(answer);
-        
-    }//GEN-LAST:event_computeMarProbActionPerformed
-
     private void computeIndeConProbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computeIndeConProbActionPerformed
         // TODO add your handling code here:
         
     }//GEN-LAST:event_computeIndeConProbActionPerformed
+
+    private void addEvtButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEvtButtonActionPerformed
+        // TODO add your handling code here:
+        EventAddView evtAdd = new EventAddView(this, cardnames, cards, totalCards);
+        evtAdd.setVisible(true);
+    }//GEN-LAST:event_addEvtButtonActionPerformed
+
+    private void computeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computeButtonActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_computeButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -247,12 +194,10 @@ public class CalculatorView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ResultField;
-    private javax.swing.JButton addEventButton;
-    private javax.swing.JButton computeIndeConProb;
-    private javax.swing.JButton computeMarProb;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JButton addEvtButton;
+    private javax.swing.JButton computeButton;
+    private javax.swing.JList<String> evtList;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

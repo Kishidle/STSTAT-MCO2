@@ -12,28 +12,28 @@ package probabilitycalculator;
 public class Card {
 
     
-    public Card(String name, String type, String rarity, int cost, int num, boolean animated){
+    public Card(String name, String type, String rarity, int cost, int num, int animated){
         
        this.name = name;
        this.type = type;
        this.rarity = rarity;
        this.cost = cost;
        this.numberOf = num;
-       this.animated = animated;
+       this.numAnimated = animated;
         
     }
     /**
      * @return the animated
      */
-    public boolean isAnimated() {
-        return animated;
+    public int getAnimated(){
+        return numAnimated;
     }
 
     /**
      * @param animated the animated to set
      */
-    public void setAnimated(boolean animated) {
-        this.animated = animated;
+    public void setAnimated(int numAnimated) {
+        this.numAnimated = numAnimated;
     }
 
     /**
@@ -111,5 +111,5 @@ public class Card {
     private String rarity;
     private int cost;
     private int numberOf;
-    private boolean animated;
+    private int numAnimated;
 }
