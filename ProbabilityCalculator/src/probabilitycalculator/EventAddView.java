@@ -217,32 +217,19 @@ public class EventAddView extends javax.swing.JFrame {
 
     private void addButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButton
         // TODO add your handling code here:
-        int count = 0;
-        boolean rarityFlag = true;
-        boolean typeFlag = true;
-        boolean costFlag = true;
+        
         //if radio button yes is selected, only count the card name
         //if radio button no is selected, do not count card name and count everything else
         
         // radio button for with replacement
-        
-        int bigN = 40;
-        int count2 = 0;
-        
-        for(int i = 0; i < cardList.size(); i++){
-          
-            if(typeComboBox.getSelectedItem().toString().equals("Any")){
-                
-            }
-        }
-        
-        
-     
+   
         //if radio button yes code part:
-        
-        
+    
         //if radio button no code part:
-        
+        int count = 0;
+        boolean rarityFlag = true;
+        boolean typeFlag = true;
+        boolean costFlag = true;
         for(int i = 0; i < cardList.size(); i++){
             if(typeComboBox.getSelectedItem().toString().equals("Any")){
                 
@@ -277,8 +264,14 @@ public class EventAddView extends javax.swing.JFrame {
                 rarityFlag = true;
                 typeFlag = true;
                 costFlag = true;
+                
+               
+                
             }
         }
+        if(replacementYesRadioBtn.isSelected()){
+                    count--;
+            }
         System.out.print(count);
         Event newEvent = new Event(eventName.getText().toString(), count, totalCards, "none");
         mainView.updateCalc(newEvent, 0);
