@@ -71,6 +71,8 @@ public class CalculatorView extends javax.swing.JFrame {
             currProb = currProb * (event.getSmallN() / event.getBigN()); // does not work yet!! just guideline or something
         }
         else if(flag == 3){ //from dependent events
+            //if(
+
             //same as flag 2 except there's a decrease in the total already
         }
         else if(flag == 4){ //from independent events
