@@ -166,39 +166,48 @@ public class EventAddViewOA extends javax.swing.JFrame {
         boolean typeFlag = true;
         boolean costFlag = true;
         for(int i = 0; i < cardList.size(); i++){
-            if(typeComboBox.getSelectedItem().toString().equals("Any")){
-                
+            
+            if(!nameComboBox.getSelectedItem().toString().equals("Any")){
+                if(nameComboBox.getSelectedItem().toString().equals(cardList.get(i).getName())){
+                    count+=cardList.get(i).getPrev();
+                }
             }
             else{
-                if(typeComboBox.getSelectedItem().toString().equals(cardList.get(i).getType()))
-                    typeFlag = true;
-                else typeFlag = false;
-            }
-            
-            if(rarityComboBox.getSelectedItem().toString().equals("Any")){
                 
-            }
-            else
-                if(rarityComboBox.getSelectedItem().toString().equals(cardList.get(i).getRarity()))
-                   rarityFlag = true;
-                else rarityFlag = false;
-            
-            if(costComboBox.getSelectedItem().toString().equals("Any")){
+                if(typeComboBox.getSelectedItem().toString().equals("Any")){
                 
-            }
-            else
-                if(Integer.parseInt(costComboBox.getSelectedItem().toString()) == cardList.get(i).getCost())
-                    costFlag = true;
-                else costFlag = false;
+                }
+                else{
+                    if(typeComboBox.getSelectedItem().toString().equals(cardList.get(i).getType()))
+                        typeFlag = true;
+                    else typeFlag = false;
+                }
+            
+                if(rarityComboBox.getSelectedItem().toString().equals("Any")){
+                
+                }
+                else
+                    if(rarityComboBox.getSelectedItem().toString().equals(cardList.get(i).getRarity()))
+                        rarityFlag = true;
+                    else rarityFlag = false;
+            
+                if(costComboBox.getSelectedItem().toString().equals("Any")){
+                
+                }
+                else
+                    if(Integer.parseInt(costComboBox.getSelectedItem().toString()) == cardList.get(i).getCost())
+                        costFlag = true;
+                    else costFlag = false;
                 
                 
               
-            if(typeFlag && rarityFlag && costFlag){
-                //System.out.print(cardList.get(i).getName());
-                count+=cardList.get(i).getPrev();
-                rarityFlag = true;
-                typeFlag = true;
-                costFlag = true;
+                if(typeFlag && rarityFlag && costFlag){
+                    //System.out.print(cardList.get(i).getName());
+                    count+=cardList.get(i).getPrev();
+                    rarityFlag = true;
+                    typeFlag = true;
+                    costFlag = true;
+                }
             }
         }
         System.out.println(count);
