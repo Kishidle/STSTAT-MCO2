@@ -229,6 +229,13 @@ public class CalculatorView extends javax.swing.JFrame {
 
     private void andButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_andButtonActionPerformed
         // TODO add your handling code here:
+        if(totalEvents == 0){
+            JOptionPane.showMessageDialog(this, "No events yet! :(");
+        }
+        else{
+            EventAddViewOA evtAdd = new EventAddViewOA(this, cardnames, cards, totalCards, 2);
+            evtAdd.setVisible(true);
+        }
     }//GEN-LAST:event_andButtonActionPerformed
 
     /**
