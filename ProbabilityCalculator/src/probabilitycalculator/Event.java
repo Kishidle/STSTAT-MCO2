@@ -15,6 +15,7 @@ public class Event {
     private float n;
     private float bigN;
     private String dependentOn;
+    private float probability;
     
     public Event(String name, float n, float bigN, String dependentOn){
         this.name = name;
@@ -23,6 +24,13 @@ public class Event {
         this.dependentOn = dependentOn;
     }
     
+    public void setProbability(Float probability){
+        this.probability = probability;
+    }
+    
+    public float getProbability(){
+        return probability;
+    }
     public void setDependent(String dependentOn){
         this.dependentOn = dependentOn;
      
