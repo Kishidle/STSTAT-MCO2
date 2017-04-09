@@ -202,8 +202,12 @@ public class EventAddViewOA extends javax.swing.JFrame {
             }
         }
         System.out.println(count);
-        
-        Event newEvent = new Event("test", count, totalCards, "none");
+        mainView.lastSelectedCost = costComboBox.getSelectedItem().toString();
+            //System.out.print(mainView.lastSelectedCost);
+        mainView.lastSelectedType = typeComboBox.getSelectedItem().toString();
+        mainView.lastSelectedRarity = rarityComboBox.getSelectedItem().toString();
+        mainView.lastSelectedName = nameComboBox.getSelectedItem().toString();
+        Event newEvent = new Event("test", count, totalCards, "none", nameComboBox.getSelectedItem().toString(), typeComboBox.getSelectedItem().toString(), rarityComboBox.getSelectedItem().toString(), costComboBox.getSelectedItem().toString());
         mainView.updateCalc(newEvent, flag);
         dispose();
         

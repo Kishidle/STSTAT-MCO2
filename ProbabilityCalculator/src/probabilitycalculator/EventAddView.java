@@ -257,7 +257,7 @@ public class EventAddView extends javax.swing.JFrame {
         }
    
         System.out.print(count);
-        Event newEvent = new Event(eventName.getText().toString(), count, totalCards, "none");
+        Event newEvent = new Event(eventName.getText().toString(), count, totalCards, "none", nameComboBox.getSelectedItem().toString(), typeComboBox.getSelectedItem().toString(), rarityComboBox.getSelectedItem().toString(), costComboBox.getSelectedItem().toString());
         
         if(replacementComboBox.getSelectedItem().toString().equals("No")){
             

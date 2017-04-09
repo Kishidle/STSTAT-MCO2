@@ -16,12 +16,51 @@ public class Event {
     private float bigN;
     private String dependentOn;
     private float probability;
+    private String selectedName;
+    private String selectedType;
+    private String selectedRarity;
+    private String selectedCost;
     
-    public Event(String name, float n, float bigN, String dependentOn){
+    public Event(String name, float n, float bigN, String dependentOn, String selectedName, String selectedType, String selectedRarity, String selectedCost){
         this.name = name;
         this.n = n;
         this.bigN = bigN;
         this.dependentOn = dependentOn;
+        this.selectedName = selectedName;
+        this.selectedType = selectedType;
+        this.selectedRarity = selectedRarity;
+        this.selectedCost = selectedCost;
+    }
+    public void setSelectedName(String selectedName){
+        this.selectedName = selectedName;
+    }
+    
+    public String getSelectedName(){
+        return selectedName;
+    }
+    
+    public void setSelectedType(String selectedType){
+        this.selectedType = selectedType;
+    }
+    
+    public String getSelectedType(){
+        return selectedType;
+    }
+    
+    public void setSelectedRarity(String selectedRarity){
+        this.selectedRarity = selectedRarity;
+    }
+    
+    public String getSelectedRarity(){
+        return selectedRarity;
+    }
+    
+    public void setSelectedCost(String selectedCost){
+        this.selectedCost = selectedCost;
+    }
+    
+    public String getSelectedCost(){
+        return selectedCost;
     }
     
     public void setProbability(Float probability){

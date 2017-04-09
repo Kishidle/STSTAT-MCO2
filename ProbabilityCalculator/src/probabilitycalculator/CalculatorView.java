@@ -64,6 +64,8 @@ public class CalculatorView extends javax.swing.JFrame {
     
     public void updateCalc(Event event, int flag){
         this.event = event;
+       
+        
         events.add(event);
         
         totalEvents++;
@@ -76,18 +78,39 @@ public class CalculatorView extends javax.swing.JFrame {
             currProb = currProb + (event.getSmallN() / event.getBigN()); //does not work yet!! just guideline or something
         }
         else if(flag == 2){ //from AND
-            currProb = currProb * (event.getSmallN() / event.getBigN()); // does not work yet!! just guideline or something
+            
+            boolean mutualEx = false;
+            Event tempEvent = events.get(events.size() - 2);
+            if(!tempEvent.getSelectedName().equals("Any") && !event.getSelectedName().equals("Any") ){
+                mutualEx = true;
+                
+            }
+            if(!tempEvent.getSelectedType().equals("Any") && !event.getSelectedType().equals("Any")){
+                mutualEx = true;
+            }
+            if(!tempEvent.getSelectedRarity().equals("Any") && !event.getSelectedRarity().equals("Any")){
+                mutualEx = true;
+            }
+            if(!tempEvent.getSelectedCost().equals("Any") && !event.getSelectedCost().equals("Any")){
+                mutualEx = true;
+            }
+            if(mutualEx){
+                System.out.println("Mutually exclusive!");
+                currProb = 0;
+            }
+            else
+                System.out.println(event.getSmallN() + "/" + event.getBigN());
+                currProb = currProb * (event.getSmallN() / event.getBigN()); // does not work yet!! just guideline or something
         }
         else if(flag == 3){ //from dependent events
             System.out.println("Selected Name Radio Button: " + selectedNameRadioBtn);
-            if(totalEvents == 1){
-                currProb = event.getSmallN() / event.getBigN();
-                System.out.println("test");
-            }
                 
-            
-            else{
-                currProb = currProb * (event.getSmallN() / event.getBigN());
+                if(totalEvents == 1){
+                    currProb = event.getSmallN() / event.getBigN();
+                }
+                else{
+                    currProb = currProb * (event.getSmallN() / event.getBigN());
+                }
                 boolean foundCard = false;
                 boolean rarityFlag = true;
                 boolean typeFlag = true;
@@ -141,7 +164,9 @@ public class CalculatorView extends javax.swing.JFrame {
                             if(cards.get(i).getNumberOf() != 0){
                                 cards.get(i).setPrev(cards.get(i).getNumberOf());
                                 System.out.println(cards.get(i).getType());
+                                System.out.println(cards.get(i).getRarity());
                                 int tempNum = cards.get(i).getNumberOf() - 1;
+                                System.out.println("Temp num: " + tempNum);
                                 cards.get(i).setNumberOf(tempNum);
                                 foundCard = true;
                             }
@@ -149,14 +174,18 @@ public class CalculatorView extends javax.swing.JFrame {
                     i++;
                 }
      
-            }
+            
            
             prevTotalCards = totalCards;
             totalCards--;
             
         }
         else if(flag == 4){ //from independent events
-            currProb = currProb * (event.getSmallN() / event.getBigN());
+            if(totalEvents == 1)
+                currProb = event.getSmallN() / event.getBigN();
+            
+            else
+                currProb = currProb * (event.getSmallN() / event.getBigN());
         }
     }
 
@@ -313,7 +342,7 @@ public class CalculatorView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No events yet! :(");
         }
         else{
-            EventAddViewOA evtAdd = new EventAddViewOA(this, cardnames, cards, totalCards, 2);
+            EventAddViewOA evtAdd = new EventAddViewOA(this, cardnames, cards, prevTotalCards, 2);
             evtAdd.setVisible(true);
         }
     }//GEN-LAST:event_andButtonActionPerformed
