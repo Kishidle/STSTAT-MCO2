@@ -31,6 +31,12 @@ public class CalculatorView extends javax.swing.JFrame {
     int totalEvents = 0;
     float currProb = 0;
     List<Card> cards = new ArrayList<Card>();
+    String lastSelectedName;
+    String lastSelectedRarity;
+    String lastSelectedType;
+    int lastSelectedCost;
+    int selectedNameRadioBtn;
+    
     
     private Event event;
     
@@ -58,6 +64,7 @@ public class CalculatorView extends javax.swing.JFrame {
     public void updateCalc(Event event, int flag){
         this.event = event;
         events.add(event);
+        
         totalEvents++;
         //get probability of event from eventAddView
         
@@ -71,12 +78,37 @@ public class CalculatorView extends javax.swing.JFrame {
             currProb = currProb * (event.getSmallN() / event.getBigN()); // does not work yet!! just guideline or something
         }
         else if(flag == 3){ //from dependent events
-            //if(
-
-            //same as flag 2 except there's a decrease in the total already
+            currProb = currProb * (event.getSmallN() / event.getBigN());
+            boolean foundCard = false;
+            //find first card that meets conditions
+            
+            while(!foundCard){
+                int i = 0;
+                
+                if(selectedNameRadioBtn == 1){
+                    if(cards.get(i).getName() == lastSelectedName){
+                        int tempNum = cards.get(i).getNumberOf() - 1;
+                        cards.get(i).setNumberOf(tempNum);
+                        foundCard = true;
+                    }
+                }
+                else if(selectedNameRadioBtn == 0){
+                    if(cards.get(i).getRarity().equals(lastSelectedRarity) && cards.get(i).getType().equals(lastSelectedType) && cards.get(i).getCost() == lastSelectedCost){
+                        int tempNum = cards.get(i).getNumberOf() - 1;
+                        cards.get(i).setNumberOf(tempNum);
+                        foundCard = true;
+                    }
+                }
+                
+                i++;
+            }
+            
+            
+            
+            totalCards--;
         }
         else if(flag == 4){ //from independent events
-            //same as flag 1?
+            currProb = currProb * (event.getSmallN() / event.getBigN());
         }
     }
 
