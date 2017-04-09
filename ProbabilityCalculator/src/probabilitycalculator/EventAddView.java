@@ -26,9 +26,7 @@ public class EventAddView extends javax.swing.JFrame {
     public EventAddView(CalculatorView mainView, String[] cardNames, List<Card> cardList, int totalCards) {
         initComponents();
         
-        ButtonGroup bg = new ButtonGroup();
-        bg.add(replacementNoRadioBtn);
-        bg.add(replacementYesRadioBtn);
+   
         
         this.mainView = mainView;
         this.cardNames = cardNames;
@@ -50,6 +48,8 @@ public class EventAddView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        cardNameBtnGroup = new javax.swing.ButtonGroup();
+        repBtnGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         eventName = new javax.swing.JTextField();
@@ -63,11 +63,9 @@ public class EventAddView extends javax.swing.JFrame {
         rarityComboBox = new javax.swing.JComboBox<>();
         costComboBox = new javax.swing.JComboBox<>();
         cardnameLbl = new javax.swing.JLabel();
-        cardnameYesRadioBtn = new javax.swing.JRadioButton();
-        cardnameNoRadioBtn = new javax.swing.JRadioButton();
         replacementLbl = new javax.swing.JLabel();
-        replacementYesRadioBtn = new javax.swing.JRadioButton();
-        replacementNoRadioBtn = new javax.swing.JRadioButton();
+        useCardComboBox = new javax.swing.JComboBox<>();
+        replacementComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,25 +96,11 @@ public class EventAddView extends javax.swing.JFrame {
 
         cardnameLbl.setText("Use card name?");
 
-        cardnameYesRadioBtn.setText("Yes");
-        cardnameYesRadioBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cardnameYesRadioBtnActionPerformed(evt);
-            }
-        });
-
-        cardnameNoRadioBtn.setText("No");
-
         replacementLbl.setText("With replacement?");
 
-        replacementYesRadioBtn.setText("Yes");
-        replacementYesRadioBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                replacementYesRadioBtnActionPerformed(evt);
-            }
-        });
+        useCardComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No" }));
 
-        replacementNoRadioBtn.setText("No");
+        replacementComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -150,16 +134,12 @@ public class EventAddView extends javax.swing.JFrame {
                                     .addComponent(costComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(cardnameLbl)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cardnameYesRadioBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cardnameNoRadioBtn))
+                                .addGap(18, 18, 18)
+                                .addComponent(useCardComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(replacementLbl)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(replacementYesRadioBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(replacementNoRadioBtn)))
+                                .addComponent(replacementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -170,16 +150,14 @@ public class EventAddView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(eventName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cardnameLbl)
-                    .addComponent(cardnameYesRadioBtn)
-                    .addComponent(cardnameNoRadioBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                    .addComponent(useCardComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(replacementLbl)
-                    .addComponent(replacementYesRadioBtn)
-                    .addComponent(replacementNoRadioBtn))
+                    .addComponent(replacementComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -232,62 +210,75 @@ public class EventAddView extends javax.swing.JFrame {
         boolean typeFlag = true;
         boolean costFlag = true;
         for(int i = 0; i < cardList.size(); i++){
-            if(typeComboBox.getSelectedItem().toString().equals("Any")){
-                
+            if(!(nameComboBox.getSelectedItem().toString().equals("Any"))){
+                if(nameComboBox.getSelectedItem().toString().equals(cardList.get(i).getName())){
+                    count+=cardList.get(i).getNumberOf();
+                }
             }
             else{
-                if(typeComboBox.getSelectedItem().toString().equals(cardList.get(i).getType()))
-                    typeFlag = true;
-                else typeFlag = false;
-            }
-            
-            if(rarityComboBox.getSelectedItem().toString().equals("Any")){
                 
-            }
-            else
-                if(rarityComboBox.getSelectedItem().toString().equals(cardList.get(i).getRarity()))
-                   rarityFlag = true;
-                else rarityFlag = false;
             
-            if(costComboBox.getSelectedItem().toString().equals("Any")){
+                if(typeComboBox.getSelectedItem().toString().equals("Any")){
                 
-            }
-            else
-                if(Integer.parseInt(costComboBox.getSelectedItem().toString()) == cardList.get(i).getCost())
-                    costFlag = true;
-                else costFlag = false;
+                }
+                else{
+                    if(typeComboBox.getSelectedItem().toString().equals(cardList.get(i).getType()))
+                        typeFlag = true;
+                    else typeFlag = false;
+                }
+            
+                if(rarityComboBox.getSelectedItem().toString().equals("Any")){
+                
+                }
+                else
+                    if(rarityComboBox.getSelectedItem().toString().equals(cardList.get(i).getRarity()))
+                        rarityFlag = true;
+                    else rarityFlag = false;
+            
+                if(costComboBox.getSelectedItem().toString().equals("Any")){
+                
+                }
+                else
+                    if(Integer.parseInt(costComboBox.getSelectedItem().toString()) == cardList.get(i).getCost())
+                        costFlag = true;
+                    else costFlag = false;
                 
                 
               
-            if(typeFlag && rarityFlag && costFlag){
+                if(typeFlag && rarityFlag && costFlag){
                 //System.out.print(cardList.get(i).getName());
-                count+=cardList.get(i).getNumberOf();
-                rarityFlag = true;
-                typeFlag = true;
-                costFlag = true;
-                
-               
-                
+                    count+=cardList.get(i).getNumberOf();
+                    rarityFlag = true;
+                    typeFlag = true;
+                    costFlag = true;
+                   
+                }
             }
         }
    
         System.out.print(count);
         Event newEvent = new Event(eventName.getText().toString(), count, totalCards, "none");
         
-        if(replacementNoRadioBtn.isSelected()){
-            mainView.updateCalc(newEvent, 3);
-            if(cardnameYesRadioBtn.isSelected()){
-                mainView.selectedNameRadioBtn = 0;
+        if(replacementComboBox.getSelectedItem().toString().equals("No")){
+            
+            if(useCardComboBox.getSelectedItem().toString().equals("Yes")){
+                
+                mainView.selectedNameRadioBtn = 1;
+                
             }
             else{
-                mainView.selectedNameRadioBtn = 1;
+                System.out.println("It went here on second pass!");
+                mainView.selectedNameRadioBtn = 0;
             }
-            mainView.lastSelectedCost = (int)costComboBox.getSelectedItem();
+            
+            mainView.lastSelectedCost = costComboBox.getSelectedItem().toString();
+            //System.out.print(mainView.lastSelectedCost);
             mainView.lastSelectedType = typeComboBox.getSelectedItem().toString();
             mainView.lastSelectedRarity = rarityComboBox.getSelectedItem().toString();
             mainView.lastSelectedName = nameComboBox.getSelectedItem().toString();
+            mainView.updateCalc(newEvent, 3);
         }
-        else if(replacementYesRadioBtn.isSelected()){
+        else if(replacementComboBox.getSelectedItem().toString().equals("Yes")){
             mainView.updateCalc(newEvent, 4);
         }
         else{
@@ -296,14 +287,6 @@ public class EventAddView extends javax.swing.JFrame {
         
         dispose();
     }//GEN-LAST:event_addButton
-
-    private void cardnameYesRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardnameYesRadioBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cardnameYesRadioBtnActionPerformed
-
-    private void replacementYesRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_replacementYesRadioBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_replacementYesRadioBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -341,9 +324,8 @@ public class EventAddView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup cardNameBtnGroup;
     private javax.swing.JLabel cardnameLbl;
-    private javax.swing.JRadioButton cardnameNoRadioBtn;
-    private javax.swing.JRadioButton cardnameYesRadioBtn;
     private javax.swing.JComboBox<String> costComboBox;
     private javax.swing.JTextField eventName;
     private javax.swing.JButton jButton1;
@@ -355,9 +337,10 @@ public class EventAddView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<String> nameComboBox;
     private javax.swing.JComboBox<String> rarityComboBox;
+    private javax.swing.ButtonGroup repBtnGroup;
+    private javax.swing.JComboBox<String> replacementComboBox;
     private javax.swing.JLabel replacementLbl;
-    private javax.swing.JRadioButton replacementNoRadioBtn;
-    private javax.swing.JRadioButton replacementYesRadioBtn;
     private javax.swing.JComboBox<String> typeComboBox;
+    private javax.swing.JComboBox<String> useCardComboBox;
     // End of variables declaration//GEN-END:variables
 }

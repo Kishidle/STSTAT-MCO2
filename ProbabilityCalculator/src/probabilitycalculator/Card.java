@@ -105,6 +105,12 @@ public class Card {
     public void setNumberOf(int numberOf) {
         this.numberOf = numberOf;
     }
+    public void setPrev(int prev){
+        this.prev = prev;
+    }
+    public int getPrev(){
+        return prev;
+    }
     
     private String name;
     private String type;
@@ -112,4 +118,5 @@ public class Card {
     private int cost;
     private int numberOf;
     private int numAnimated;
+    private int prev;
 }

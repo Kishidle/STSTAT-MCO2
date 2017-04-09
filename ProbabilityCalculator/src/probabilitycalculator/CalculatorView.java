@@ -28,13 +28,14 @@ public class CalculatorView extends javax.swing.JFrame {
     int[] numdeck = {2, 3, 1, 3, 3, 2, 3, 3, 2, 2, 2, 2, 3, 3, 1, 2, 3};
     int[] numAnimated = {2, 0, 0, 0, 1, 2, 0, 3, 2, 2, 2, 1, 1, 0, 0, 0, 0};
     int totalCards = 40;
+    int prevTotalCards = totalCards;
     int totalEvents = 0;
     float currProb = 0;
     List<Card> cards = new ArrayList<Card>();
     String lastSelectedName;
     String lastSelectedRarity;
     String lastSelectedType;
-    int lastSelectedCost;
+    String lastSelectedCost;
     int selectedNameRadioBtn;
     
     
@@ -54,7 +55,7 @@ public class CalculatorView extends javax.swing.JFrame {
         
         for(int i = 0; i < 17; i++){
             Card temp = new Card(cardnames[i], cardtype[i], cardrarity[i], cardcost[i], numdeck[i], numAnimated[i]);
-            
+            temp.setPrev(numdeck[i]);
             cards.add(temp);
         }
         
@@ -68,50 +69,91 @@ public class CalculatorView extends javax.swing.JFrame {
         totalEvents++;
         //get probability of event from eventAddView
         
-        if(flag == 0){ //first event entered into the system
+        /*if(flag == 0){ //first event entered into the system
             currProb = event.getSmallN() / event.getBigN();
-        }
-        else if(flag == 1){ //from OR
+        }*/
+        if(flag == 1){ //from OR
             currProb = currProb + (event.getSmallN() / event.getBigN()); //does not work yet!! just guideline or something
         }
         else if(flag == 2){ //from AND
             currProb = currProb * (event.getSmallN() / event.getBigN()); // does not work yet!! just guideline or something
         }
         else if(flag == 3){ //from dependent events
-            currProb = currProb * (event.getSmallN() / event.getBigN());
-            boolean foundCard = false;
-            //find first card that meets conditions
-            
-            int i = 0;
-            while(!foundCard && i < cards.size()){
+            System.out.println("Selected Name Radio Button: " + selectedNameRadioBtn);
+            if(totalEvents == 1){
+                currProb = event.getSmallN() / event.getBigN();
+                System.out.println("test");
+            }
                 
-                if(selectedNameRadioBtn == 1){
-                    if(cards.get(i).getName() == lastSelectedName){
-                        if(cards.get(i).getNumberOf() != 0){
-                            int tempNum = cards.get(i).getNumberOf() - 1;
-                            cards.get(i).setNumberOf(tempNum);
-                            foundCard = true;
+            
+            else{
+                currProb = currProb * (event.getSmallN() / event.getBigN());
+                boolean foundCard = false;
+                boolean rarityFlag = true;
+                boolean typeFlag = true;
+                boolean costFlag = true;
+                System.out.println("It went to else!");
+                System.out.println(lastSelectedCost);
+                //find first card that meets conditions
+            
+                int i = 0;
+                while(!foundCard && i < cards.size()){
+                    if(selectedNameRadioBtn == 1){
+                        if(cards.get(i).getName() == lastSelectedName){
+                            if(cards.get(i).getNumberOf() != 0){
+                                cards.get(i).setPrev(cards.get(i).getNumberOf());
+                                int tempNum = cards.get(i).getNumberOf() - 1;
+                                cards.get(i).setNumberOf(tempNum);
+                                foundCard = true;
+                            }
                         }
                     }
-                }
-                else if(selectedNameRadioBtn == 0){
-                    if(cards.get(i).getRarity().equals(lastSelectedRarity) && cards.get(i).getType().equals(lastSelectedType) && cards.get(i).getCost() == lastSelectedCost){
-                        if(cards.get(i).getNumberOf() != 0){
-                            int tempNum = cards.get(i).getNumberOf() - 1;
-                            cards.get(i).setNumberOf(tempNum);
-                            foundCard = true;
+                    else if(selectedNameRadioBtn == 0){
+                        System.out.println("test");
+                        if(lastSelectedType.equals("Any")){
+                            System.out.println("went here");
                         }
-                    }
+                        else{
+                            if(lastSelectedType.equals(cards.get(i).getType()))
+                                typeFlag = true;
+                            else typeFlag = false;
+                        }
+                        if(lastSelectedRarity.equals("Any")){
+                            System.out.println("went here2");
+                        
+                        }
+                        else{
+                            if(lastSelectedRarity.equals(cards.get(i).getRarity()))
+                                rarityFlag = true;
+                            else rarityFlag = false;
+                        }
+                        if(lastSelectedCost.equals("Any")){
+                            System.out.println("went here3");
+                        
+                        }
+                        else
+                            if(Integer.parseInt(lastSelectedCost) == cards.get(i).getCost())
+                                costFlag = true;
+                            else costFlag = false;
+                      
+                    
+                        if(costFlag && rarityFlag && typeFlag)
+                            if(cards.get(i).getNumberOf() != 0){
+                                cards.get(i).setPrev(cards.get(i).getNumberOf());
+                                System.out.println(cards.get(i).getType());
+                                int tempNum = cards.get(i).getNumberOf() - 1;
+                                cards.get(i).setNumberOf(tempNum);
+                                foundCard = true;
+                            }
+                        }
+                    i++;
                 }
-                
-                i++;
+     
             }
-            
-            if(!foundCard){
-               //error message
-            }
-            
+           
+            prevTotalCards = totalCards;
             totalCards--;
+            
         }
         else if(flag == 4){ //from independent events
             currProb = currProb * (event.getSmallN() / event.getBigN());
@@ -260,7 +302,7 @@ public class CalculatorView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No events yet! :(");
         }
         else{
-            EventAddViewOA evtAdd = new EventAddViewOA(this, cardnames, cards, totalCards, 1);
+            EventAddViewOA evtAdd = new EventAddViewOA(this, cardnames, cards, prevTotalCards, 1);
             evtAdd.setVisible(true);
         }
     }//GEN-LAST:event_orButtonActionPerformed

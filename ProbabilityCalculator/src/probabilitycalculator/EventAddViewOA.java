@@ -195,13 +195,13 @@ public class EventAddViewOA extends javax.swing.JFrame {
               
             if(typeFlag && rarityFlag && costFlag){
                 //System.out.print(cardList.get(i).getName());
-                count+=cardList.get(i).getNumberOf();
+                count+=cardList.get(i).getPrev();
                 rarityFlag = true;
                 typeFlag = true;
                 costFlag = true;
             }
         }
-        System.out.print(count);
+        System.out.println(count);
         
         Event newEvent = new Event("test", count, totalCards, "none");
         mainView.updateCalc(newEvent, flag);
