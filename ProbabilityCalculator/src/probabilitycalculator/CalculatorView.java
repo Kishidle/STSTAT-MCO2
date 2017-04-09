@@ -82,28 +82,34 @@ public class CalculatorView extends javax.swing.JFrame {
             boolean foundCard = false;
             //find first card that meets conditions
             
-            while(!foundCard){
-                int i = 0;
+            int i = 0;
+            while(!foundCard && i < cards.size()){
                 
                 if(selectedNameRadioBtn == 1){
                     if(cards.get(i).getName() == lastSelectedName){
-                        int tempNum = cards.get(i).getNumberOf() - 1;
-                        cards.get(i).setNumberOf(tempNum);
-                        foundCard = true;
+                        if(cards.get(i).getNumberOf() != 0){
+                            int tempNum = cards.get(i).getNumberOf() - 1;
+                            cards.get(i).setNumberOf(tempNum);
+                            foundCard = true;
+                        }
                     }
                 }
                 else if(selectedNameRadioBtn == 0){
                     if(cards.get(i).getRarity().equals(lastSelectedRarity) && cards.get(i).getType().equals(lastSelectedType) && cards.get(i).getCost() == lastSelectedCost){
-                        int tempNum = cards.get(i).getNumberOf() - 1;
-                        cards.get(i).setNumberOf(tempNum);
-                        foundCard = true;
+                        if(cards.get(i).getNumberOf() != 0){
+                            int tempNum = cards.get(i).getNumberOf() - 1;
+                            cards.get(i).setNumberOf(tempNum);
+                            foundCard = true;
+                        }
                     }
                 }
                 
                 i++;
             }
             
-            
+            if(!foundCard){
+               //error message
+            }
             
             totalCards--;
         }
