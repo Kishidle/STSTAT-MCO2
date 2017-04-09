@@ -37,7 +37,7 @@ public class CalculatorView extends javax.swing.JFrame {
     String lastSelectedType;
     String lastSelectedCost;
     int selectedNameRadioBtn;
-    
+    private DefaultListModel lModel;
     
     private Event event;
     
@@ -45,7 +45,8 @@ public class CalculatorView extends javax.swing.JFrame {
     
     public CalculatorView() {
         initComponents();
-        
+        lModel = new DefaultListModel();
+        evtList.setModel(lModel);
         //System.out.println(cardnames.length);
         //System.out.println(cardtype.length);
         //System.out.println(cardrarity.length);
@@ -67,6 +68,7 @@ public class CalculatorView extends javax.swing.JFrame {
        
         
         events.add(event);
+       
         
         totalEvents++;
         //get probability of event from eventAddView
@@ -75,10 +77,15 @@ public class CalculatorView extends javax.swing.JFrame {
             currProb = event.getSmallN() / event.getBigN();
         }*/
         if(flag == 1){ //from OR
+            String temp = lModel.getElementAt(lModel.getSize() - 1).toString();
+            temp = temp + " OR " + event.getName();
+            lModel.setElementAt(temp, lModel.getSize() - 1);
             currProb = currProb + (event.getSmallN() / event.getBigN()); //does not work yet!! just guideline or something
         }
         else if(flag == 2){ //from AND
-            
+            String temp = lModel.getElementAt(lModel.getSize() - 1).toString();
+            temp = temp + " AND " + event.getName();
+            lModel.setElementAt(temp, lModel.getSize() - 1);
             boolean mutualEx = false;
             Event tempEvent = events.get(events.size() - 2);
             if(!tempEvent.getSelectedName().equals("Any") && !event.getSelectedName().equals("Any") ){
@@ -103,6 +110,7 @@ public class CalculatorView extends javax.swing.JFrame {
                 currProb = currProb * (event.getSmallN() / event.getBigN()); // does not work yet!! just guideline or something
         }
         else if(flag == 3){ //from dependent events
+            lModel.addElement(event.getName().toString());
             System.out.println("Selected Name Radio Button: " + selectedNameRadioBtn);
                 
                 if(totalEvents == 1){
@@ -181,6 +189,7 @@ public class CalculatorView extends javax.swing.JFrame {
             
         }
         else if(flag == 4){ //from independent events
+            lModel.addElement(event.getName().toString());
             if(totalEvents == 1)
                 currProb = event.getSmallN() / event.getBigN();
             
@@ -210,11 +219,6 @@ public class CalculatorView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        evtList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(evtList);
 
         addEvtButton.setText("Add Event");
