@@ -282,7 +282,7 @@ public class EventAddView extends javax.swing.JFrame {
             else{
                 mainView.selectedNameRadioBtn = 1;
             }
-            mainView.lastSelectedCost = costComboBox.getSelectedItem().toString();
+            mainView.lastSelectedCost = (int)costComboBox.getSelectedItem();
             mainView.lastSelectedType = typeComboBox.getSelectedItem().toString();
             mainView.lastSelectedRarity = rarityComboBox.getSelectedItem().toString();
             mainView.lastSelectedName = nameComboBox.getSelectedItem().toString();
