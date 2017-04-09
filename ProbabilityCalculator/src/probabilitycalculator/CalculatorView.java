@@ -96,6 +96,7 @@ public class CalculatorView extends javax.swing.JFrame {
         andButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         answerField = new javax.swing.JTextField();
+        dependentButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -134,27 +135,40 @@ public class CalculatorView extends javax.swing.JFrame {
         answerField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jScrollPane2.setViewportView(answerField);
 
+        dependentButton.setText("Add Dependent Event");
+        dependentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dependentButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(computeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(addEvtButton)
-                        .addGap(30, 30, 30)
-                        .addComponent(orButton)
-                        .addGap(31, 31, 31)
-                        .addComponent(andButton)
-                        .addGap(0, 25, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(dependentButton)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(69, 69, 69)
+                                        .addComponent(computeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(16, 16, 16)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(addEvtButton)
+                                .addGap(30, 30, 30)
+                                .addComponent(orButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                                .addComponent(andButton)
+                                .addGap(24, 24, 24)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -170,8 +184,10 @@ public class CalculatorView extends javax.swing.JFrame {
                     .addComponent(orButton)
                     .addComponent(andButton))
                 .addGap(18, 18, 18)
+                .addComponent(dependentButton)
+                .addGap(18, 18, 18)
                 .addComponent(computeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -219,6 +235,10 @@ public class CalculatorView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_orButtonActionPerformed
 
+    private void dependentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dependentButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dependentButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -259,6 +279,7 @@ public class CalculatorView extends javax.swing.JFrame {
     private javax.swing.JButton andButton;
     private javax.swing.JTextField answerField;
     private javax.swing.JButton computeButton;
+    private javax.swing.JButton dependentButton;
     private javax.swing.JList<String> evtList;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
