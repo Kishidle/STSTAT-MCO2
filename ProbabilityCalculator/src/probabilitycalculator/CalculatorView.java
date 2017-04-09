@@ -65,10 +65,10 @@ public class CalculatorView extends javax.swing.JFrame {
             currProb = event.getSmallN() / event.getBigN();
         }
         else if(flag == 1){ //from OR
-            //currProb = currProb + (event.getSmallN() / event.getBigN()); does not work yet!! just guideline or something
+            currProb = currProb + (event.getSmallN() / event.getBigN()); //does not work yet!! just guideline or something
         }
         else if(flag == 2){ //from AND
-            //currProb = currProb * (event.getSmallN() / event.getBigN()); does not work yet!! just guideline or something
+            currProb = currProb * (event.getSmallN() / event.getBigN()); // does not work yet!! just guideline or something
         }
         else if(flag == 3){ //from dependent events
             //same as flag 2 except there's a decrease in the total already
@@ -129,6 +129,11 @@ public class CalculatorView extends javax.swing.JFrame {
         });
 
         andButton.setText("AND");
+        andButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                andButtonActionPerformed(evt);
+            }
+        });
 
         answerField.setEditable(false);
         answerField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -215,9 +220,14 @@ public class CalculatorView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No events yet! :(");
         }
         else{
-            EventAddViewOA evtAdd = new EventAddViewOA(this, cardnames, cards, totalCards);
+            EventAddViewOA evtAdd = new EventAddViewOA(this, cardnames, cards, totalCards, 1);
+            evtAdd.setVisible(true);
         }
     }//GEN-LAST:event_orButtonActionPerformed
+
+    private void andButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_andButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_andButtonActionPerformed
 
     /**
      * @param args the command line arguments

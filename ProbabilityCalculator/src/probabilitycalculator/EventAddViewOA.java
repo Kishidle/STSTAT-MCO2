@@ -23,13 +23,13 @@ public class EventAddViewOA extends javax.swing.JFrame {
     public EventAddViewOA(){
         
     }
-    public EventAddViewOA(CalculatorView mainView, String[] cardNames, List<Card> cardList, int totalCards) { //add int flag
+    public EventAddViewOA(CalculatorView mainView, String[] cardNames, List<Card> cardList, int totalCards, int flag) { //add int flag
         initComponents();
         this.mainView = mainView;
         this.cardNames = cardNames;
         this.cardList = cardList;
         this.totalCards = totalCards;
-        //this.flag = flag;
+        this.flag = flag;
         initEvtComboBox();
     }
     
@@ -204,6 +204,8 @@ public class EventAddViewOA extends javax.swing.JFrame {
         System.out.print(count);
         
         Event newEvent = new Event("test", count, totalCards, "none");
+        mainView.updateCalc(newEvent, flag);
+        dispose();
         
     }//GEN-LAST:event_addButton
 
