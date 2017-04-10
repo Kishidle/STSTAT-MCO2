@@ -122,6 +122,7 @@ public class CalculatorView extends javax.swing.JFrame {
             System.out.println("Selected Name Radio Button: " + selectedNameRadioBtn);
                 
                 if(totalEvents == 1){
+                    
                     currProb = event.getSmallN() / event.getBigN();
                 }
                 else{
@@ -264,7 +265,7 @@ public class CalculatorView extends javax.swing.JFrame {
         answerField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jScrollPane2.setViewportView(answerField);
 
-        drawMultipleButton.setText("Draw Multiple");
+        drawMultipleButton.setText("Draw Multiple w/o Order");
         drawMultipleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 drawMultipleButtonActionPerformed(evt);
@@ -287,11 +288,14 @@ public class CalculatorView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                     .addComponent(jScrollPane2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(resetButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(drawMultipleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(drawMultipleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -300,10 +304,7 @@ public class CalculatorView extends javax.swing.JFrame {
                                     .addComponent(addEvtButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(29, 29, 29)
                                 .addComponent(computeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(9, 9, 9))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(resetButton)))
+                                .addGap(9, 9, 9)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -322,9 +323,9 @@ public class CalculatorView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(andButton))
                     .addComponent(computeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(drawMultipleButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(resetButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -358,7 +359,7 @@ public class CalculatorView extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(totalEvents > 0){
             
-            answerField.setText(String.format("%.4f", currProb));
+            answerField.setText(String.format("%.6f", currProb));
         }
         else{
             JOptionPane.showMessageDialog(this, "No events yet! :(");
