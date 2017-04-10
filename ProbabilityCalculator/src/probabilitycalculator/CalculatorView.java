@@ -62,7 +62,15 @@ public class CalculatorView extends javax.swing.JFrame {
         
       
     }
-    
+    public int getTotalCards(){
+        return totalCards;
+    }
+    public List<Card> getCardList(){
+        return cards;
+    }
+    public void updateMultiple(int temp){
+        currProb = currProb * temp;
+    }
     public void updateCalc(Event event, int flag){
         this.event = event;
        
@@ -216,6 +224,8 @@ public class CalculatorView extends javax.swing.JFrame {
         andButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         answerField = new javax.swing.JTextField();
+        drawMultipleButton = new javax.swing.JButton();
+        resetButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -254,6 +264,20 @@ public class CalculatorView extends javax.swing.JFrame {
         answerField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jScrollPane2.setViewportView(answerField);
 
+        drawMultipleButton.setText("Draw Multiple");
+        drawMultipleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drawMultipleButtonActionPerformed(evt);
+            }
+        });
+
+        resetButton.setText("Reset!");
+        resetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -261,21 +285,26 @@ public class CalculatorView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                     .addComponent(jScrollPane2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(addEvtButton)
-                        .addGap(30, 30, 30)
-                        .addComponent(orButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                        .addComponent(andButton)
-                        .addGap(24, 24, 24)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(drawMultipleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(orButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(andButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(addEvtButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(29, 29, 29)
+                                .addComponent(computeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(9, 9, 9))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(resetButton)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(computeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,13 +314,19 @@ public class CalculatorView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addEvtButton)
-                    .addComponent(orButton)
-                    .addComponent(andButton))
-                .addGap(18, 18, 18)
-                .addComponent(computeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addComponent(addEvtButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(orButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(andButton))
+                    .addComponent(computeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(drawMultipleButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(resetButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -322,7 +357,8 @@ public class CalculatorView extends javax.swing.JFrame {
     private void computeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computeButtonActionPerformed
         // TODO add your handling code here:
         if(totalEvents > 0){
-        answerField.setText(Float.toString(currProb));
+            
+            answerField.setText(String.format("%.4f", currProb));
         }
         else{
             JOptionPane.showMessageDialog(this, "No events yet! :(");
@@ -350,6 +386,22 @@ public class CalculatorView extends javax.swing.JFrame {
             evtAdd.setVisible(true);
         }
     }//GEN-LAST:event_andButtonActionPerformed
+
+    private void drawMultipleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawMultipleButtonActionPerformed
+        // TODO add your handling code here:
+        int drawCount = Integer.parseInt(JOptionPane.showInputDialog("How many cards will you draw?"));
+        int temp = drawCount;
+        
+        EventAddViewMultiple evtAddMtl = new EventAddViewMultiple(this, cardnames, cards, totalCards, drawCount - 1, temp);
+        evtAddMtl.setVisible(true);
+    }//GEN-LAST:event_drawMultipleButtonActionPerformed
+
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+        // TODO add your handling code here:
+        CalculatorView newMain = new CalculatorView();
+        dispose();
+        newMain.setVisible(true);
+    }//GEN-LAST:event_resetButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -391,10 +443,12 @@ public class CalculatorView extends javax.swing.JFrame {
     private javax.swing.JButton andButton;
     private javax.swing.JTextField answerField;
     private javax.swing.JButton computeButton;
+    private javax.swing.JButton drawMultipleButton;
     private javax.swing.JList<String> evtList;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton orButton;
+    private javax.swing.JButton resetButton;
     // End of variables declaration//GEN-END:variables
 }
